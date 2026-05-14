@@ -79,7 +79,7 @@ img {
 }
 
 /* Typography Scale */
-h1 { font-size: clamp(3rem, 8vw, 6rem); line-height: 1.1; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1.1; letter-spacing: -0.02em; }
 h2 { font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; margin-bottom: 1.5rem; }
 .label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; font-weight: 600; opacity: 0.6; display: block; margin-bottom: 1rem; }
 
@@ -678,4 +678,17 @@ header {
 .hero h1,
 .hero p {
     text-align: left;
+}
+/* Hero left alignment fix */
+.hero-content {
+    text-align: left !important;
+    align-items: flex-start !important;
+}
+
+.hero .container {
+    width: 100%;
+}
+/* Hero image z-index fix */
+.hero-image-wrap {
+    z-index: 1;
 }

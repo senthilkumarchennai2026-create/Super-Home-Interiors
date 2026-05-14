@@ -60,3 +60,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+
+// Close mega menu when clicking outside
+document.addEventListener('click', function(e) {
+    const hasDropdown = document.querySelector('.has-dropdown');
+    if (hasDropdown && !hasDropdown.contains(e.target)) {
+        hasDropdown.classList.remove('active');
+    }
+});
+
+// Mega menu hover fix
+document.querySelectorAll('.has-dropdown').forEach(item => {
+    item.addEventListener('mouseenter', () => {
+        item.classList.add('active');
+    });
+    item.addEventListener('mouseleave', () => {
+        item.classList.remove('active');
+    });
+});

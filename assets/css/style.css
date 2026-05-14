@@ -1,4 +1,4 @@
-/* 
+ /* 
    Super Home Interiors - Premium Style System
    Colors: White, Beige, Wood Texture, Soft Gold
    Typography: Playfair Display (Serif), Inter (Sans)
@@ -626,4 +626,29 @@ footer {
     font-size: 0.8rem;
     opacity: 0.6;
     margin: 0;
+}
+/* Process Grid */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px;
+    margin-top: 60px;
+}
+
+.process-step {
+    padding: 30px 20px;
+    border-top: 2px solid var(--line);
+}
+
+.step-number {
+    font-size: 3rem;
+    font-family: var(--font-serif);
+    opacity: 0.2;
+    margin-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
 }

@@ -567,3 +567,63 @@ footer {
     height: 20px;
     margin-bottom: 4px;
 }
+
+/* Mega Menu Fix */
+.mega-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    background: white;
+    z-index: 1000;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    padding: 40px 0;
+}
+
+.has-dropdown {
+    position: relative;
+}
+
+.has-dropdown:hover .mega-menu {
+    display: block;
+}
+
+.mega-menu-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.mega-menu-links {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.mega-link-item {
+    padding: 15px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+}
+
+.mega-link-item:hover {
+    border-color: var(--line);
+    background: var(--bg-beige);
+}
+
+.mega-link-item span {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 5px;
+}
+
+.mega-link-item p {
+    font-size: 0.8rem;
+    opacity: 0.6;
+    margin: 0;
+}

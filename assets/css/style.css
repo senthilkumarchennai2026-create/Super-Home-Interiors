@@ -667,3 +667,15 @@ header {
     left: 0;
     width: 100%;
 }
+/* Hero content alignment fix */
+.hero-content {
+    padding-left: 0;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.hero .label,
+.hero h1,
+.hero p {
+    text-align: left;
+}

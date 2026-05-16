@@ -1182,3 +1182,24 @@ footer {
 .faq-trigger {
     text-align: left;
 }
+/* Testimonials section — fully centred */
+.testimonial-card {
+    text-align: center;
+}
+
+.testimonial-card p {
+    text-align: center;
+}
+
+.testimonial-card h4 {
+    text-align: center;
+}
+
+.testimonial-card .label {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.stars {
+    text-align: center;
+}

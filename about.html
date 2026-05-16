@@ -11,13 +11,54 @@
     <header>
         <div class="container nav-content">
             <a href="/" class="logo">SUPER HOME</a>
-            <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/about.html" class="active">About</a>
-                <a href="/services.html">Services</a>
-                <a href="/portfolio.html">Portfolio</a>
-                <a href="/contact.html">Contact</a>
-            </nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html" class="active">About</a></li>
+                <li class="has-dropdown">
+                    <a href="/services.html">Services <i data-lucide="chevron-down" size="14"></i></a>
+                    <div class="mega-menu">
+                        <div class="container mega-menu-content">
+                            <div class="mega-menu-info">
+                                <h3>Our Expertise</h3>
+                                <p>We provide comprehensive interior design solutions that combine aesthetic excellence
+                                    with functional efficiency.</p>
+                                <div style="margin-top: 30px;">
+                                    <a href="/services.html" class="btn btn-outline"
+                                        style="padding: 12px 24px; font-size: 0.65rem;">View All Services</a>
+                                </div>
+                            </div>
+                            <div class="mega-menu-links">
+                                <a href="/services/modular-kitchen.html" class="mega-link-item">
+                                    <span>Modular Kitchens</span>
+                                    <p>Designed for Culinary Passion</p>
+                                </a>
+                                <a href="/services/bedroom-interiors.html" class="mega-link-item">
+                                    <span>Bedroom Interiors</span>
+                                    <p>Private Sanctuary Design</p>
+                                </a>
+                                <a href="/services/living-room-interiors.html" class="mega-link-item">
+                                    <span>Living Room</span>
+                                    <p>Spaces for Connection</p>
+                                </a>
+                                <a href="/services/wardrobes.html" class="mega-link-item">
+                                    <span>Smart Wardrobes</span>
+                                    <p>Organized Elegance</p>
+                                </a>
+                                <a href="/services/false-ceiling.html" class="mega-link-item">
+                                    <span>False Ceiling</span>
+                                    <p>Architectural Lighting</p>
+                                </a>
+                                <a href="/services/full-home-interiors.html" class="mega-link-item">
+                                    <span>Turnkey Solutions</span>
+                                    <p>End-to-End Excellence</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/portfolio.html">Portfolio</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
             <button class="mobile-toggle"><i data-lucide="menu"></i></button>
         </div>
     </header>
@@ -27,13 +68,13 @@
             <div class="container">
                 <span class="label reveal">Our Story</span>
                 <h1 class="reveal">15 Years. 1,000 Homes. One Unwavering Commitment.</h1>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px;">
+                <div class="about-grid">
                     <div class="reveal">
                         <p style="font-size: 1.2rem; margin-bottom: 20px;">Super Home Interiors was built on a simple belief: every family deserves a home that feels completely, beautifully theirs.</p>
                         <p style="opacity: 0.7;">Started by a team of passionate designers in Chennai, we've grown from a small studio to a trusted name for over 1,000 families across OMR, ECR, and beyond. We don't just design rooms; we design the way your family wakes up, gathers, works, and rests.</p>
                     </div>
                     <div class="reveal" style="transition-delay: 0.2s;">
-                        <img src="https://images.unsplash.com/photo-1579725942955-4d8376f5c8bb?auto=format&fit=crop&q=80&w=1000" alt="Super Home Team" style="border-radius: 20px;">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=1000" alt="Super Home Team" style="border-radius: 20px;">
                     </div>
                 </div>
             </div>

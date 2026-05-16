@@ -58,6 +58,7 @@
         .form-control { width: 100%; padding: 15px; background: var(--bg-beige); border: 1px solid transparent; font-family: var(--font-sans); }
         .form-control:focus { outline: none; border-color: var(--accent); background: white; }
         @media (max-width: 992px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+        @media (max-width: 768px) { .map-container { margin-left: -20px; margin-right: -20px; width: calc(100% + 40px) !important; } }
     </style>
 </head>
 <body>
@@ -127,7 +128,7 @@
 
             <div class="contact-grid">
                 <div class="reveal">
-                    <div style="width: 100%; height: 450px; background: var(--bg-beige);">
+                    <div class="map-container" style="width: 100%; height: 450px; background: var(--bg-beige);">
                         <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3889.8732381270557!2d80.2073994759089!3d12.851458917498426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525b6a71ab595b%3A0xc0787d5a5a1f81d!2sSuper%20Home%20Interiors!5e0!3m2!1sen!2sin!4v1715569421234!5m2!1sen!2sin" 
                             width="100%" 
@@ -144,11 +145,11 @@
                     <div style="background: var(--bg-beige); padding: 60px;">
                         <h3 class="serif" style="margin-bottom: 40px;">Immediate Assistance</h3>
                         <div style="display: flex; flex-direction: column; gap: 20px;">
-                            <a href="https://wa.me/918754588861" class="btn btn-outline" style="width: 100%; justify-content: center; gap: 15px; background: white;">
-                                <i data-lucide="message-circle" style="color: #25D366;"></i> WhatsApp Now
+                            <a href="https://wa.me/918754588861" class="btn btn-primary" style="width: 100%; justify-content: center; gap: 15px; background: #208A4B; border-color: #208A4B; color: white;">
+                                <i data-lucide="message-circle" style="color: white;"></i> WhatsApp Now
                             </a>
-                            <a href="tel:8754588861" class="btn btn-primary" style="width: 100%; justify-content: center; gap: 15px;">
-                                <i data-lucide="phone-call"></i> Call 87545 88861
+                            <a href="tel:8754588861" class="btn btn-primary" style="width: 100%; justify-content: center; gap: 15px; background: #1C1C1C; border-color: #1C1C1C; color: white;">
+                                <i data-lucide="phone-call" style="color: white;"></i> Call 87545 88861
                             </a>
                         </div>
                         

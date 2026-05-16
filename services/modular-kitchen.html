@@ -30,15 +30,21 @@
     </script>
 
     <link rel="stylesheet" href="/assets/css/style.css">
+    <style>
+        @media (max-width: 768px) {
+            .service-hero-content .btn { width: 100%; display: flex; justify-content: center; }
+            .service-hero-content h1 { font-size: clamp(2rem, 8vw, 2.5rem); line-height: 1.2; word-wrap: break-word; }
+        }
+    </style>
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
     <header>
         <div class="container nav-content">
-            <a href="/" class="logo">SUPER HOME</a>
+            <a href="/index.html" class="logo">SUPER HOME</a>
             <ul class="nav-links">
-                <li><a href="/">Home</a></li>
+                <li><a href="/index.html">Home</a></li>
                 <li><a href="/about.html">About</a></li>
                 <li class="has-dropdown">
                     <a href="/services.html" class="active">Services <i data-lucide="chevron-down" size="14"></i></a>
@@ -71,8 +77,8 @@
     <main>
 
         <!-- 1. HERO -->
-        <section class="hero" style="min-height: 80vh;">
-            <div class="container hero-content">
+        <section class="service-hero">
+            <div class="service-hero-content">
                 <span class="label reveal">Modular Kitchens · Chennai</span>
                 <h1 class="reveal" style="transition-delay: 0.2s;">A Kitchen That Makes<br>Cooking Feel Effortless.</h1>
                 <p class="reveal" style="transition-delay: 0.4s; max-width: 560px; margin-top: 20px; font-size: 1.1rem; opacity: 0.8; font-family: var(--font-serif); font-style: italic;">
@@ -83,7 +89,7 @@
                     <a href="tel:8754588861" class="btn btn-outline">Call 87545 88861</a>
                 </div>
             </div>
-            <div class="hero-image-wrap reveal" style="transition-delay: 0.3s;">
+            <div class="service-hero-image reveal" style="transition-delay: 0.3s;">
                 <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&q=80&w=1500" alt="Modular kitchen design Chennai - premium kitchen by Super Home Interiors">
             </div>
         </section>

@@ -1,4 +1,4 @@
- /* 
+/* 
    Super Home Interiors - Premium Style System
    Version: 2.0 - Layout Stabilization Pass
    Colors: White, Beige, Bronze/Wood, Soft Gold
@@ -1109,4 +1109,76 @@ footer {
         margin: 0 20px;
         width: calc(100% - 40px);
     }
+}
+/* Premium Partners Section */
+.brand-list {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+}
+
+.brand-item {
+    display: flex;
+    flex-direction: column;
+    padding: 0 32px;
+    gap: 4px;
+}
+
+.brand-item:first-child {
+    padding-left: 0;
+}
+
+.brand-name {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    color: var(--text-dark);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.brand-sub {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+}
+
+.brand-divider {
+    width: 1px;
+    height: 36px;
+    background: var(--line);
+    flex-shrink: 0;
+}
+
+.trust-brands .label {
+    margin-bottom: 0;
+    margin-right: 32px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .brand-list {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+    .brand-divider { display: none; }
+    .brand-item { padding: 0; }
+}
+/* Testimonials section — consistent left alignment */
+.testimonials .section-header,
+.section-header.reveal {
+    text-align: left;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* FAQ section — full width, consistent */
+.faq-item {
+    text-align: left;
+}
+
+.faq-trigger {
+    text-align: left;
 }

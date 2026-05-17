@@ -1281,3 +1281,82 @@ footer {
 @media (min-width: 1025px) {
     .mob-services-block { display: none !important; }
 }
+/* ============================================
+   MOBILE SERVICE TILES — paste at bottom of style.css
+   Controls the expand/collapse of service tiles
+   in the mobile nav drawer on ALL pages
+   ============================================ */
+
+/* Service tile block — hidden by default */
+.mob-services-block {
+    display: none;
+    width: 100%;
+    padding: 0 10px 10px;
+    text-align: left;
+}
+
+/* Show tiles when parent li has .mob-expanded */
+.has-dropdown.mob-expanded .mob-services-block {
+    display: block;
+}
+
+.mob-services-label {
+    display: block;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.45;
+    margin: 8px 0 10px;
+    color: var(--text-dark);
+}
+
+.mob-services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 10px;
+}
+
+.mob-service-tile {
+    display: block;
+    background: var(--bg-beige);
+    border-radius: 8px;
+    padding: 11px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+    text-decoration: none;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.18s, color 0.18s;
+}
+
+.mob-service-tile:active,
+.mob-service-tile:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.mob-view-all {
+    display: inline-block;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    margin-top: 4px;
+}
+
+/* Rotate chevron when expanded */
+.has-dropdown.mob-expanded > a i,
+.has-dropdown.mob-expanded > a svg {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* Desktop: never show mob-services-block */
+@media (min-width: 1025px) {
+    .mob-services-block { display: none !important; }
+}
+

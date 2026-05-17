@@ -1,8 +1,9 @@
 /*
    Super Home Interiors - Interactions
-   Version: 2.1 - Mobile Services Fix
-   Fixed: Mobile nav service sub-links now clickable,
-          Mega menu 8-item support
+   Version: 2.2 - Universal Mobile Services Fix
+   Works on ALL pages without changing individual HTML files.
+   Mobile: Services link expands inline tile grid.
+   Desktop: Mega menu unchanged.
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,100 +15,114 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (header) {
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            header.classList.toggle('scrolled', window.scrollY > 50);
         }, { passive: true });
     }
 
 
     /* ============================================
-       2. MOBILE NAV TOGGLE
+       2. MOBILE NAV — inject service tiles once,
+          toggle expand on "Services" tap
        ============================================ */
     const mobileToggle = document.querySelector('.mobile-toggle');
-    const navLinks = document.querySelector('.nav-links');
+    const navLinks     = document.querySelector('.nav-links');
 
     if (mobileToggle && navLinks) {
-        mobileToggle.addEventListener('click', () => {
-            const isOpen = navLinks.classList.toggle('active');
-            mobileToggle.innerHTML = isOpen
-                ? '<i data-lucide="x"></i>'
-                : '<i data-lucide="menu"></i>';
+
+        /* --- Inject mobile service tiles if not already in HTML --- */
+        const hasDropdownLi = navLinks.querySelector('.has-dropdown');
+        if (hasDropdownLi && !hasDropdownLi.querySelector('.mob-services-block')) {
+            const block = document.createElement('div');
+            block.className = 'mob-services-block';
+            block.innerHTML = `
+                <span class="mob-services-label">Choose a Service</span>
+                <div class="mob-services-grid">
+                    <a href="/services/modular-kitchen.html"       class="mob-service-tile">Modular Kitchens</a>
+                    <a href="/services/bedroom-interiors.html"     class="mob-service-tile">Bedroom Interiors</a>
+                    <a href="/services/living-room-interiors.html" class="mob-service-tile">Living Room</a>
+                    <a href="/services/wardrobes.html"             class="mob-service-tile">Smart Wardrobes</a>
+                    <a href="/services/false-ceiling.html"         class="mob-service-tile">False Ceiling</a>
+                    <a href="/services/full-home-interiors.html"   class="mob-service-tile">Turnkey Solutions</a>
+                    <a href="/services/villa-interiors.html"       class="mob-service-tile">Villa Interiors</a>
+                    <a href="/services/office-interiors.html"      class="mob-service-tile">Office Interiors</a>
+                </div>
+                <a href="/services.html" class="mob-view-all">View all services →</a>`;
+            hasDropdownLi.appendChild(block);
+        }
+
+        /* --- Open / close the whole nav drawer --- */
+        function openDrawer() {
+            navLinks.classList.add('active');
+            mobileToggle.innerHTML = '<i data-lucide="x"></i>';
             lucide.createIcons();
-            document.body.style.overflow = isOpen ? 'hidden' : '';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeDrawer() {
+            navLinks.classList.remove('active');
+            navLinks.querySelector('.has-dropdown')?.classList.remove('mob-expanded');
+            mobileToggle.innerHTML = '<i data-lucide="menu"></i>';
+            lucide.createIcons();
+            document.body.style.overflow = '';
+        }
+
+        mobileToggle.addEventListener('click', () => {
+            navLinks.classList.contains('active') ? closeDrawer() : openDrawer();
         });
 
-        // Close nav ONLY when a non-service-tile link is clicked
-        // (service tiles are .mob-service-tile — let those navigate freely)
-        navLinks.querySelectorAll('a').forEach(link => {
-            // Skip service tiles and the "View all" link — they navigate away, no close needed
-            if (link.classList.contains('mob-service-tile') || link.classList.contains('mob-view-all')) {
-                return; // do nothing — browser handles navigation naturally
-            }
-
-            // Skip the Services parent link (it just labels the section on mobile)
-            if (link.closest('.has-dropdown') && !link.closest('.mob-services-block')) {
-                link.addEventListener('click', (e) => {
-                    if (window.innerWidth <= 1024) {
-                        e.preventDefault(); // don't navigate, just keep drawer open
-                    }
-                });
-                return;
-            }
-
-            // All other nav links (Home, About, Portfolio, Contact) → close drawer
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-                mobileToggle.innerHTML = '<i data-lucide="menu"></i>';
-                lucide.createIcons();
-                document.body.style.overflow = '';
+        /* --- Tap "Services" on mobile: expand tiles in-place --- */
+        const servicesParentLink = navLinks.querySelector('.has-dropdown > a');
+        if (servicesParentLink) {
+            servicesParentLink.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    const li = servicesParentLink.closest('.has-dropdown');
+                    li.classList.toggle('mob-expanded');
+                }
             });
+        }
+
+        /* --- Tap any regular nav link → close drawer --- */
+        navLinks.querySelectorAll('li:not(.has-dropdown) a').forEach(link => {
+            link.addEventListener('click', () => closeDrawer());
+        });
+
+        /* --- Tap "View all services" → close drawer too --- */
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.classList.contains('mob-view-all')) {
+                closeDrawer();
+            }
         });
     }
 
 
     /* ============================================
-       3. MEGA MENU — JS only (no CSS hover conflict)
+       3. MEGA MENU — desktop hover (JS-controlled)
        ============================================ */
     const hasDropdowns = document.querySelectorAll('.has-dropdown');
 
     hasDropdowns.forEach(dropdown => {
-        const trigger = dropdown.querySelector('a');
-        const menu = dropdown.querySelector('.mega-menu');
-
+        const trigger = dropdown.querySelector(':scope > a');
+        const menu    = dropdown.querySelector('.mega-menu');
         if (!trigger || !menu) return;
 
-        // Open on mouseenter (desktop)
         dropdown.addEventListener('mouseenter', () => {
-            hasDropdowns.forEach(d => {
-                if (d !== dropdown) d.classList.remove('active');
-            });
-            dropdown.classList.add('active');
+            if (window.innerWidth > 1024) {
+                hasDropdowns.forEach(d => { if (d !== dropdown) d.classList.remove('active'); });
+                dropdown.classList.add('active');
+            }
         });
 
-        // Close on mouseleave
         dropdown.addEventListener('mouseleave', () => {
             dropdown.classList.remove('active');
         });
-
-        // On mobile: tapping "Services" label does nothing (handled above)
-        trigger.addEventListener('click', (e) => {
-            if (window.innerWidth <= 1024) {
-                e.preventDefault();
-            }
-        });
     });
 
-    // Close mega menu when clicking anywhere outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.has-dropdown')) {
             hasDropdowns.forEach(d => d.classList.remove('active'));
         }
     });
 
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             hasDropdowns.forEach(d => d.classList.remove('active'));
@@ -120,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
        ============================================ */
     const revealElements = document.querySelectorAll('.reveal, .reveal-fade');
 
-    if (revealElements.length > 0) {
+    if (revealElements.length > 0 && window.IntersectionObserver) {
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -128,10 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     revealObserver.unobserve(entry.target);
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -40px 0px'
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
         revealElements.forEach(el => revealObserver.observe(el));
     }
@@ -140,19 +152,12 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ============================================
        5. FAQ ACCORDION
        ============================================ */
-    const faqItems = document.querySelectorAll('.faq-item');
-
-    faqItems.forEach(item => {
+    document.querySelectorAll('.faq-item').forEach(item => {
         const trigger = item.querySelector('.faq-trigger');
         if (!trigger) return;
-
         trigger.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
-
-            faqItems.forEach(other => {
-                if (other !== item) other.classList.remove('active');
-            });
-
+            document.querySelectorAll('.faq-item').forEach(o => o.classList.remove('active'));
             item.classList.toggle('active', !isActive);
         });
     });
@@ -162,32 +167,31 @@ document.addEventListener('DOMContentLoaded', () => {
        6. SMOOTH SCROLL for anchor links
        ============================================ */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', function (e) {
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
                 e.preventDefault();
                 const headerHeight = header ? header.offsetHeight : 0;
-                const targetPosition = target.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
-                window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                window.scrollTo({
+                    top: target.getBoundingClientRect().top + window.scrollY - headerHeight - 20,
+                    behavior: 'smooth'
+                });
             }
         });
     });
 
 
     /* ============================================
-       7. CONTACT FORM — simple submit handler
+       7. CONTACT FORM
        ============================================ */
     const contactForm = document.getElementById('contactForm');
-
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = contactForm.querySelector('[type="submit"]');
             const originalText = btn.textContent;
-
             btn.textContent = 'Sending...';
             btn.disabled = true;
-
             setTimeout(() => {
                 btn.textContent = '✓ Enquiry Sent!';
                 btn.style.background = '#25D366';

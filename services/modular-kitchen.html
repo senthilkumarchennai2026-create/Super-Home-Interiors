@@ -59,11 +59,28 @@
                                 <a href="/services/modular-kitchen.html" class="mega-link-item"><span>Modular Kitchens</span><p>Designed for Culinary Passion</p></a>
                                 <a href="/services/bedroom-interiors.html" class="mega-link-item"><span>Bedroom Interiors</span><p>Private Sanctuary Design</p></a>
                                 <a href="/services/living-room-interiors.html" class="mega-link-item"><span>Living Room</span><p>Spaces for Connection</p></a>
-                                <a href="/services/wardrobes.html" class="mega-link-item"><span>Smart Wardrobes</span><p>Organized Elegance</p></a>
+                                <a href="/services/wardrobes.html" class="mega-link-item"><span>Smart Wardrobes</span><p>Organised Elegance</p></a>
                                 <a href="/services/false-ceiling.html" class="mega-link-item"><span>False Ceiling</span><p>Architectural Lighting</p></a>
                                 <a href="/services/full-home-interiors.html" class="mega-link-item"><span>Turnkey Solutions</span><p>End-to-End Excellence</p></a>
+                                <a href="/services/villa-interiors.html" class="mega-link-item"><span>Villa Interiors</span><p>Premium Living Spaces</p></a>
+                                <a href="/services/office-interiors.html" class="mega-link-item"><span>Office Interiors</span><p>Productive Workspaces</p></a>
                             </div>
                         </div>
+                    </div>
+                    <!-- Mobile service tiles — shown by main.js when drawer opens -->
+                    <div class="mob-services-block">
+                        <span class="mob-services-label">Choose a Service</span>
+                        <div class="mob-services-grid">
+                            <a href="/services/modular-kitchen.html"       class="mob-service-tile">Modular Kitchens</a>
+                            <a href="/services/bedroom-interiors.html"     class="mob-service-tile">Bedroom Interiors</a>
+                            <a href="/services/living-room-interiors.html" class="mob-service-tile">Living Room</a>
+                            <a href="/services/wardrobes.html"             class="mob-service-tile">Smart Wardrobes</a>
+                            <a href="/services/false-ceiling.html"         class="mob-service-tile">False Ceiling</a>
+                            <a href="/services/full-home-interiors.html"   class="mob-service-tile">Turnkey Solutions</a>
+                            <a href="/services/villa-interiors.html"       class="mob-service-tile">Villa Interiors</a>
+                            <a href="/services/office-interiors.html"      class="mob-service-tile">Office Interiors</a>
+                        </div>
+                        <a href="/services.html" class="mob-view-all">View all services →</a>
                     </div>
                 </li>
                 <li><a href="/portfolio.html">Portfolio</a></li>
@@ -292,17 +309,6 @@
     <a href="https://wa.me/918754588861" class="whatsapp-float desktop-only"><i data-lucide="message-circle"></i></a>
 
     <script src="/assets/js/main.js"></script>
-    <script>
-        lucide.createIcons();
-        document.querySelectorAll('.faq-trigger').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.parentElement;
-                item.classList.toggle('active');
-                const icon = btn.querySelector('[data-lucide]');
-                icon.setAttribute('data-lucide', item.classList.contains('active') ? 'minus' : 'plus');
-                lucide.createIcons();
-            });
-        });
-    </script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>

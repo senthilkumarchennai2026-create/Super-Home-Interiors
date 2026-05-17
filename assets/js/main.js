@@ -1,9 +1,6 @@
 /*
    Super Home Interiors - Interactions
-   Version: 2.2 - Universal Mobile Services Fix
-   Works on ALL pages without changing individual HTML files.
-   Mobile: Services link expands inline tile grid.
-   Desktop: Mega menu unchanged.
+   Version: 2.3 - FAQ icon fix + universal mobile services
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
        1. HEADER — Scroll behaviour
        ============================================ */
     const header = document.querySelector('header');
-
     if (header) {
         window.addEventListener('scroll', () => {
             header.classList.toggle('scrolled', window.scrollY > 50);
@@ -21,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ============================================
-       2. MOBILE NAV — inject service tiles once,
+       2. MOBILE NAV — inject service tiles,
           toggle expand on "Services" tap
        ============================================ */
     const mobileToggle = document.querySelector('.mobile-toggle');
@@ -29,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mobileToggle && navLinks) {
 
-        /* --- Inject mobile service tiles if not already in HTML --- */
+        /* Inject mobile service tiles if not already in HTML */
         const hasDropdownLi = navLinks.querySelector('.has-dropdown');
         if (hasDropdownLi && !hasDropdownLi.querySelector('.mob-services-block')) {
             const block = document.createElement('div');
@@ -50,7 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             hasDropdownLi.appendChild(block);
         }
 
-        /* --- Open / close the whole nav drawer --- */
         function openDrawer() {
             navLinks.classList.add('active');
             mobileToggle.innerHTML = '<i data-lucide="x"></i>';
@@ -69,41 +64,37 @@ document.addEventListener('DOMContentLoaded', () => {
             navLinks.classList.contains('active') ? closeDrawer() : openDrawer();
         });
 
-        /* --- Tap "Services" on mobile: expand tiles in-place --- */
+        /* Tap "Services" label → expand/collapse tiles */
         const servicesParentLink = navLinks.querySelector('.has-dropdown > a');
         if (servicesParentLink) {
             servicesParentLink.addEventListener('click', (e) => {
                 if (window.innerWidth <= 1024) {
                     e.preventDefault();
-                    const li = servicesParentLink.closest('.has-dropdown');
-                    li.classList.toggle('mob-expanded');
+                    servicesParentLink.closest('.has-dropdown').classList.toggle('mob-expanded');
                 }
             });
         }
 
-        /* --- Tap any regular nav link → close drawer --- */
+        /* Regular nav links → close drawer */
         navLinks.querySelectorAll('li:not(.has-dropdown) a').forEach(link => {
             link.addEventListener('click', () => closeDrawer());
         });
 
-        /* --- Tap "View all services" → close drawer too --- */
+        /* "View all services" → close drawer */
         navLinks.addEventListener('click', (e) => {
-            if (e.target.classList.contains('mob-view-all')) {
-                closeDrawer();
-            }
+            if (e.target.classList.contains('mob-view-all')) closeDrawer();
         });
     }
 
 
     /* ============================================
-       3. MEGA MENU — desktop hover (JS-controlled)
+       3. MEGA MENU — desktop hover
        ============================================ */
     const hasDropdowns = document.querySelectorAll('.has-dropdown');
 
     hasDropdowns.forEach(dropdown => {
-        const trigger = dropdown.querySelector(':scope > a');
-        const menu    = dropdown.querySelector('.mega-menu');
-        if (!trigger || !menu) return;
+        const menu = dropdown.querySelector('.mega-menu');
+        if (!menu) return;
 
         dropdown.addEventListener('mouseenter', () => {
             if (window.innerWidth > 1024) {
@@ -111,60 +102,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 dropdown.classList.add('active');
             }
         });
-
         dropdown.addEventListener('mouseleave', () => {
             dropdown.classList.remove('active');
         });
     });
 
     document.addEventListener('click', (e) => {
-        if (!e.target.closest('.has-dropdown')) {
+        if (!e.target.closest('.has-dropdown'))
             hasDropdowns.forEach(d => d.classList.remove('active'));
-        }
     });
 
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            hasDropdowns.forEach(d => d.classList.remove('active'));
-        }
+        if (e.key === 'Escape') hasDropdowns.forEach(d => d.classList.remove('active'));
     });
 
 
     /* ============================================
-       4. SCROLL REVEAL ANIMATIONS
+       4. SCROLL REVEAL
        ============================================ */
     const revealElements = document.querySelectorAll('.reveal, .reveal-fade');
-
     if (revealElements.length > 0 && window.IntersectionObserver) {
-        const revealObserver = new IntersectionObserver((entries) => {
+        const ro = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
+                    ro.unobserve(entry.target);
                 }
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        revealElements.forEach(el => revealObserver.observe(el));
+        revealElements.forEach(el => ro.observe(el));
     }
 
 
     /* ============================================
-       5. FAQ ACCORDION
+       5. FAQ ACCORDION — with plus/minus icon swap
        ============================================ */
     document.querySelectorAll('.faq-item').forEach(item => {
         const trigger = item.querySelector('.faq-trigger');
         if (!trigger) return;
+
         trigger.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
-            document.querySelectorAll('.faq-item').forEach(o => o.classList.remove('active'));
+
+            /* Close all items first */
+            document.querySelectorAll('.faq-item').forEach(other => {
+                if (other !== item) {
+                    other.classList.remove('active');
+                    const otherIcon = other.querySelector('.faq-trigger [data-lucide]');
+                    if (otherIcon) {
+                        otherIcon.setAttribute('data-lucide', 'plus');
+                        lucide.createIcons();
+                    }
+                }
+            });
+
+            /* Toggle clicked item */
             item.classList.toggle('active', !isActive);
+
+            /* Swap icon: plus ↔ minus */
+            const icon = trigger.querySelector('[data-lucide]');
+            if (icon) {
+                icon.setAttribute('data-lucide', !isActive ? 'minus' : 'plus');
+                lucide.createIcons();
+            }
         });
     });
 
 
     /* ============================================
-       6. SMOOTH SCROLL for anchor links
+       6. SMOOTH SCROLL
        ============================================ */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -189,14 +195,14 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = contactForm.querySelector('[type="submit"]');
-            const originalText = btn.textContent;
+            const orig = btn.textContent;
             btn.textContent = 'Sending...';
             btn.disabled = true;
             setTimeout(() => {
                 btn.textContent = '✓ Enquiry Sent!';
                 btn.style.background = '#25D366';
                 setTimeout(() => {
-                    btn.textContent = originalText;
+                    btn.textContent = orig;
                     btn.style.background = '';
                     btn.disabled = false;
                     contactForm.reset();

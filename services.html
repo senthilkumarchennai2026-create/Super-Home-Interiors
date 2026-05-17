@@ -4,63 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Services | Super Home Interiors Chennai</title>
+    <meta name="description" content="Explore Super Home Interiors' complete range of interior design services in Chennai — modular kitchens, bedroom interiors, living rooms, wardrobes, false ceiling, villa & office interiors.">
     <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* ── Dropdown / Mega-menu ── */
+        .nav-links { list-style: none; display: flex; align-items: center; gap: 36px; }
+        .nav-links li { position: relative; }
+        .nav-links li > a { display: flex; align-items: center; gap: 4px; }
+
+        /* Desktop mega-menu */
+        .mega-menu {
+            position: absolute;
+            top: calc(100% + 16px);
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: var(--bg-white);
+            border: 1px solid rgba(139,111,71,0.12);
+            border-radius: 12px;
+            padding: 36px;
+            width: 720px;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.1);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+            z-index: 1000;
+        }
+        .has-dropdown:hover .mega-menu,
+        .has-dropdown:focus-within .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+        .mega-menu-content { display: grid; grid-template-columns: 220px 1fr; gap: 40px; }
+        .mega-menu-info h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .mega-menu-info p { font-size: 0.85rem; opacity: 0.7; line-height: 1.6; }
+        .mega-menu-links { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+        .mega-link-item {
+            display: block;
+            padding: 12px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+        .mega-link-item:hover { background: var(--bg-beige); }
+        .mega-link-item span { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-dark); }
+        .mega-link-item p { font-size: 0.75rem; opacity: 0.6; margin: 0; }
+
+        /* ── Mobile nav ── */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: var(--bg-white);
+            z-index: 999;
+            flex-direction: column;
+            padding: 80px 30px 30px;
+            overflow-y: auto;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        .mobile-nav-link {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            text-decoration: none;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+        }
+        .mobile-services-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            opacity: 0.5;
+            margin: 20px 0 8px;
+        }
+        .mobile-service-links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+        .mobile-service-link {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            text-decoration: none;
+            background: var(--bg-beige);
+            padding: 12px 14px;
+            border-radius: 8px;
+        }
+        .mobile-service-link:hover { background: var(--accent); color: white; }
+        .mobile-cta-row { display: flex; flex-direction: column; gap: 12px; margin-top: 30px; }
+
+        /* btn fix */
+        .btn { transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.4s ease !important; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.06); }
+        .btn-outline:hover { background-color: var(--accent) !important; color: var(--bg-white) !important; border-color: var(--accent) !important; }
+    </style>
 </head>
 <body>
+
+    <!-- ═══════════════ HEADER ═══════════════ -->
     <header>
         <div class="container nav-content">
             <a href="/" class="logo">SUPER HOME</a>
-            <nav class="nav-links">
-                <a href="/">Home</a>
-                <a href="/about.html">About</a>
-                <a href="/services.html" class="active">Services</a>
-                <a href="/portfolio.html">Portfolio</a>
-                <a href="/contact.html">Contact</a>
-            </nav>
-            <button class="mobile-toggle"><i data-lucide="menu"></i></button>
+
+            <!-- Desktop Nav -->
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li class="has-dropdown">
+                    <a href="/services.html" class="active">Services <i data-lucide="chevron-down" size="14"></i></a>
+                    <div class="mega-menu">
+                        <div class="mega-menu-content">
+                            <div class="mega-menu-info">
+                                <h3>Our Expertise</h3>
+                                <p>Comprehensive interior design solutions that combine aesthetic excellence with functional efficiency.</p>
+                                <div style="margin-top: 24px;">
+                                    <a href="/services.html" class="btn btn-outline" style="padding: 10px 20px; font-size: 0.65rem;">View All Services</a>
+                                </div>
+                            </div>
+                            <div class="mega-menu-links">
+                                <a href="/services/modular-kitchen.html" class="mega-link-item">
+                                    <span>Modular Kitchens</span>
+                                    <p>Designed for Culinary Passion</p>
+                                </a>
+                                <a href="/services/bedroom-interiors.html" class="mega-link-item">
+                                    <span>Bedroom Interiors</span>
+                                    <p>Private Sanctuary Design</p>
+                                </a>
+                                <a href="/services/living-room-interiors.html" class="mega-link-item">
+                                    <span>Living Room</span>
+                                    <p>Spaces for Connection</p>
+                                </a>
+                                <a href="/services/wardrobes.html" class="mega-link-item">
+                                    <span>Smart Wardrobes</span>
+                                    <p>Organised Elegance</p>
+                                </a>
+                                <a href="/services/false-ceiling.html" class="mega-link-item">
+                                    <span>False Ceiling</span>
+                                    <p>Architectural Lighting</p>
+                                </a>
+                                <a href="/services/full-home-interiors.html" class="mega-link-item">
+                                    <span>Turnkey Solutions</span>
+                                    <p>End-to-End Excellence</p>
+                                </a>
+                                <a href="/services/villa-interiors.html" class="mega-link-item">
+                                    <span>Villa Interiors</span>
+                                    <p>Premium Living Spaces</p>
+                                </a>
+                                <a href="/services/office-interiors.html" class="mega-link-item">
+                                    <span>Office Interiors</span>
+                                    <p>Productive Workspaces</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/portfolio.html">Portfolio</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+
+            <div class="header-cta desktop-only">
+                <a href="/contact.html" class="btn btn-primary">Inquire Now</a>
+            </div>
+            <button class="mobile-toggle" id="mobileOpenBtn" aria-label="Open menu">
+                <i data-lucide="menu"></i>
+            </button>
         </div>
     </header>
 
+    <!-- ═══════════════ MOBILE MENU ═══════════════ -->
+    <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation">
+        <button class="mobile-menu-close" id="mobileCloseBtn" aria-label="Close menu">
+            <i data-lucide="x"></i>
+        </button>
+
+        <a href="/" class="mobile-nav-link">Home</a>
+        <a href="/about.html" class="mobile-nav-link">About</a>
+
+        <span class="mobile-services-label">Services</span>
+        <div class="mobile-service-links">
+            <a href="/services/modular-kitchen.html" class="mobile-service-link">Modular Kitchens</a>
+            <a href="/services/bedroom-interiors.html" class="mobile-service-link">Bedroom Interiors</a>
+            <a href="/services/living-room-interiors.html" class="mobile-service-link">Living Room</a>
+            <a href="/services/wardrobes.html" class="mobile-service-link">Smart Wardrobes</a>
+            <a href="/services/false-ceiling.html" class="mobile-service-link">False Ceiling</a>
+            <a href="/services/full-home-interiors.html" class="mobile-service-link">Turnkey Solutions</a>
+            <a href="/services/villa-interiors.html" class="mobile-service-link">Villa Interiors</a>
+            <a href="/services/office-interiors.html" class="mobile-service-link">Office Interiors</a>
+        </div>
+        <a href="/services.html" class="mobile-nav-link" style="font-size:0.9rem; opacity:0.6;">View All Services →</a>
+
+        <a href="/portfolio.html" class="mobile-nav-link">Portfolio</a>
+        <a href="/contact.html" class="mobile-nav-link">Contact</a>
+
+        <div class="mobile-cta-row">
+            <a href="https://wa.me/918754588861" class="btn btn-primary" style="text-align:center;">WhatsApp Consultation</a>
+            <a href="tel:8754588861" class="btn btn-outline" style="text-align:center;">Call 87545 88861</a>
+        </div>
+    </div>
+
+    <!-- ═══════════════ MAIN ═══════════════ -->
     <main>
         <section class="section container" style="padding-top: 180px;">
             <div class="section-header reveal">
                 <span class="label">Comprehensive Design</span>
                 <h1>Every Space, Designed for the Life You Actually Live.</h1>
             </div>
-            
+
             <div class="services-grid">
+                <!-- Full Home Interiors -->
                 <div class="service-card reveal">
                     <i data-lucide="home" style="margin-bottom: 20px; color: var(--accent);"></i>
                     <h3 class="serif">Full Home Interiors</h3>
                     <p>Your entire home, conceived as one unified vision. Seamless, personalised, and completely turnkey.</p>
                     <a href="/services/full-home-interiors.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
                 </div>
+                <!-- Modular Kitchen -->
                 <div class="service-card reveal" style="transition-delay: 0.1s;">
                     <i data-lucide="utensils" style="margin-bottom: 20px; color: var(--accent);"></i>
                     <h3 class="serif">Modular Kitchen</h3>
                     <p>High-function, ergonomic kitchens using premium waterproof plywood and soft-close hardware.</p>
                     <a href="/services/modular-kitchen.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
                 </div>
+                <!-- Bedroom Interiors -->
                 <div class="service-card reveal" style="transition-delay: 0.2s;">
                     <i data-lucide="bed" style="margin-bottom: 20px; color: var(--accent);"></i>
                     <h3 class="serif">Bedroom Interiors</h3>
                     <p>Creating sanctuaries for rest with custom wardrobes, headboards, and mood lighting.</p>
                     <a href="/services/bedroom-interiors.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
                 </div>
+                <!-- Living Room -->
                 <div class="service-card reveal">
                     <i data-lucide="sofa" style="margin-bottom: 20px; color: var(--accent);"></i>
                     <h3 class="serif">Living Room</h3>
                     <p>TV units, false ceilings, and wall paneling that make your gathering space unforgettable.</p>
                     <a href="/services/living-room-interiors.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
                 </div>
+                <!-- Smart Wardrobes -->
                 <div class="service-card reveal" style="transition-delay: 0.1s;">
+                    <i data-lucide="shirt" style="margin-bottom: 20px; color: var(--accent);"></i>
+                    <h3 class="serif">Smart Wardrobes</h3>
+                    <p>Custom built-in wardrobes with soft-close fittings, mirrors, and optimised storage zones.</p>
+                    <a href="/services/wardrobes.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
+                </div>
+                <!-- False Ceiling -->
+                <div class="service-card reveal" style="transition-delay: 0.2s;">
                     <i data-lucide="layers" style="margin-bottom: 20px; color: var(--accent);"></i>
                     <h3 class="serif">False Ceiling</h3>
                     <p>Architectural lighting and POP designs that elevate the volume of any room.</p>
                     <a href="/services/false-ceiling.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
                 </div>
-                <div class="service-card reveal" style="transition-delay: 0.2s;">
+                <!-- Villa Interiors -->
+                <div class="service-card reveal">
+                    <i data-lucide="building" style="margin-bottom: 20px; color: var(--accent);"></i>
+                    <h3 class="serif">Villa Interiors</h3>
+                    <p>Grand, cohesive design for independent houses and premium villas across Chennai.</p>
+                    <a href="/services/villa-interiors.html" class="btn btn-outline" style="padding: 10px 20px;">Details</a>
+                </div>
+                <!-- Office Interiors -->
+                <div class="service-card reveal" style="transition-delay: 0.1s;">
                     <i data-lucide="briefcase" style="margin-bottom: 20px; color: var(--accent);"></i>
                     <h3 class="serif">Office Interiors</h3>
                     <p>Productive work environments for Chennai's startups and established businesses.</p>
@@ -68,14 +278,116 @@
                 </div>
             </div>
         </section>
+
+        <!-- CTA -->
+        <section class="section" style="background: var(--text-dark); color: white; text-align: center;">
+            <div class="container reveal">
+                <h2 style="font-size: clamp(2rem, 4vw, 3rem);">Ready to Transform Your Home?</h2>
+                <p style="max-width: 600px; margin: 24px auto 40px; opacity: 0.8; font-size: 1.05rem;">
+                    The first conversation is free. Let's talk about your vision.
+                </p>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://wa.me/918754588861" class="btn btn-primary" style="background: var(--accent); min-width: 220px;">WhatsApp Consultation</a>
+                    <a href="tel:8754588861" class="btn btn-outline" style="color: white; border-color: rgba(255,255,255,0.3); min-width: 220px;">Call 87545 88861</a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer style="background: var(--bg-beige); padding: 60px 0;">
-        <div class="container">
-            <p>© 2025 Super Home Interiors</p>
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer>
+        <div class="container footer-grid">
+            <div>
+                <span class="footer-logo">SUPER HOME</span>
+                <p style="opacity: 0.7; font-size: 0.9rem;">Chennai's Most Trusted Interior Studio</p>
+                <div style="margin-top: 30px; display: flex; gap: 20px;">
+                    <a href="#" style="opacity: 0.5;"><i data-lucide="instagram" size="20"></i></a>
+                    <a href="#" style="opacity: 0.5;"><i data-lucide="facebook" size="20"></i></a>
+                    <a href="#" style="opacity: 0.5;"><i data-lucide="linkedin" size="20"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-title">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="/services/modular-kitchen.html">Modular Kitchens</a></li>
+                    <li><a href="/services/bedroom-interiors.html">Bedroom Interiors</a></li>
+                    <li><a href="/services/living-room-interiors.html">Living Rooms</a></li>
+                    <li><a href="/services/wardrobes.html">Smart Wardrobes</a></li>
+                    <li><a href="/services/false-ceiling.html">False Ceiling</a></li>
+                    <li><a href="/services/full-home-interiors.html">Turnkey Interiors</a></li>
+                    <li><a href="/services/villa-interiors.html">Villa Interiors</a></li>
+                    <li><a href="/services/office-interiors.html">Office Interiors</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="/about.html">About Us</a></li>
+                    <li><a href="/portfolio.html">Our Work</a></li>
+                    <li><a href="/process.html">Our Process</a></li>
+                    <li><a href="/materials.html">Materials</a></li>
+                    <li><a href="/contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-title">Consultation</h4>
+                <p style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 20px;">Ready to transform your home? Book a free site visit today.</p>
+                <a href="/contact.html" class="btn btn-primary" style="padding: 15px 30px; font-size: 0.75rem; width: 100%; justify-content: center;">Get Free Quote</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <p>© 2025 Super Home Interiors. Thalambur, Chennai.</p>
+            <p>Century Plywood · Marino Laminates · Afal Fittings</p>
         </div>
     </footer>
+
+    <!-- Mobile Sticky CTA Bar -->
+    <div class="mobile-sticky-cta">
+        <a href="https://wa.me/918754588861" class="mobile-cta-item">
+            <i data-lucide="message-circle"></i>
+            WhatsApp
+        </a>
+        <a href="tel:8754588861" class="mobile-cta-item">
+            <i data-lucide="phone"></i>
+            Call
+        </a>
+        <a href="/contact.html" class="mobile-cta-item">
+            <i data-lucide="calendar"></i>
+            Consult
+        </a>
+    </div>
+
+    <!-- Floating WhatsApp (desktop) -->
+    <a href="https://wa.me/918754588861" class="whatsapp-float desktop-only">
+        <i data-lucide="message-circle"></i>
+    </a>
+
     <script src="/assets/js/main.js"></script>
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+
+        // ── Mobile menu open/close ──
+        const mobileMenu   = document.getElementById('mobileMenu');
+        const openBtn      = document.getElementById('mobileOpenBtn');
+        const closeBtn     = document.getElementById('mobileCloseBtn');
+
+        openBtn.addEventListener('click', () => {
+            mobileMenu.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+
+        // Close when a link inside mobile menu is tapped
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
 </body>
 </html>

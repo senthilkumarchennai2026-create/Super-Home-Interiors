@@ -1359,4 +1359,238 @@ footer {
 @media (min-width: 1025px) {
     .mob-services-block { display: none !important; }
 }
+/* ================================================================
+   SUPER HOME INTERIORS — Style Additions
+   Paste ALL of this at the very bottom of assets/css/style.css
+   Fixes: mobile layout overflow, service tiles, FAQ, nav
+   ================================================================ */
+
+
+/* ── 1. MOBILE SERVICE TILES in nav drawer ── */
+
+.mob-services-block {
+    display: none;
+    width: 100%;
+    padding: 0 10px 10px;
+    text-align: left;
+}
+
+.has-dropdown.mob-expanded .mob-services-block {
+    display: block;
+}
+
+.mob-services-label {
+    display: block;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    opacity: 0.45;
+    margin: 8px 0 10px;
+    color: var(--text-dark);
+}
+
+.mob-services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7px;
+    margin-bottom: 10px;
+}
+
+.mob-service-tile {
+    display: block;
+    background: var(--bg-beige);
+    border-radius: 8px;
+    padding: 11px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    line-height: 1.3;
+    text-decoration: none;
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.18s, color 0.18s;
+}
+
+.mob-service-tile:active,
+.mob-service-tile:hover {
+    background: var(--accent);
+    color: #fff;
+}
+
+.mob-view-all {
+    display: inline-block;
+    font-size: 0.75rem;
+    opacity: 0.5;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    margin-top: 4px;
+}
+
+/* Rotate chevron when expanded */
+.has-dropdown.mob-expanded > a i,
+.has-dropdown.mob-expanded > a svg {
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+}
+
+/* Desktop: never show mob-services-block */
+@media (min-width: 1025px) {
+    .mob-services-block { display: none !important; }
+}
+
+
+/* ── 2. MOBILE LAYOUT FIXES — service detail pages ── */
+
+@media (max-width: 768px) {
+
+    /* Fix ANY inline 2-column grid → single column on mobile.
+       Targets the "Built for Our Climate" and similar sections
+       that use style="display:grid; grid-template-columns:1fr 1fr" */
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 30px !important;
+    }
+
+    /* Also catch 3-column grids used in some sections */
+    [style*="grid-template-columns: 1fr 1fr 1fr"],
+    [style*="grid-template-columns:1fr 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    /* Fix sections that use display:grid without a class */
+    [style*="display: grid"],
+    [style*="display:grid"] {
+        gap: 24px !important;
+    }
+
+    /* Prevent any content from overflowing viewport */
+    main section,
+    main .container,
+    main [class*="grid"],
+    main [style*="grid"] {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* Service hero: stack vertically, full width */
+    .service-hero {
+        grid-template-columns: 1fr !important;
+        padding-top: 100px !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        min-height: auto !important;
+        gap: 0 !important;
+    }
+
+    .service-hero-content {
+        padding: 40px 20px 30px !important;
+        text-align: left !important;
+        order: 1;
+    }
+
+    .service-hero-content h1 {
+        font-size: clamp(1.9rem, 7vw, 2.4rem) !important;
+        line-height: 1.15 !important;
+        word-break: break-word !important;
+    }
+
+    .service-hero-content .btn {
+        width: 100% !important;
+        justify-content: center !important;
+        display: flex !important;
+    }
+
+    /* Hero buttons: stack vertically */
+    .service-hero-content [style*="display: flex"][style*="gap"] {
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+
+    .service-hero-image {
+        order: 2;
+        height: 280px !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Section padding on mobile */
+    .section {
+        padding: 60px 0 !important;
+    }
+
+    /* Section header max-width */
+    .section-header {
+        max-width: 100% !important;
+    }
+
+    /* Portfolio grid: single column on mobile */
+    .portfolio-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .portfolio-item {
+        height: 260px !important;
+    }
+
+    /* Materials / features grid items: full width, proper padding */
+    .services-grid .reveal,
+    .services-grid > div {
+        padding: 30px 20px !important;
+    }
+
+    /* FAQ: full width, no overflow */
+    .faq-item {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .faq-trigger {
+        font-size: 0.9rem !important;
+        padding: 20px 0 !important;
+        gap: 12px;
+    }
+
+    .faq-content p {
+        font-size: 0.88rem !important;
+        line-height: 1.75 !important;
+    }
+
+    /* Contact-info list used in service pages */
+    .contact-info {
+        gap: 12px !important;
+    }
+
+    /* CTA section buttons: stack */
+    [style*="display: flex"][style*="justify-content: center"] {
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 12px !important;
+    }
+
+    [style*="min-width: 230px"],
+    [style*="min-width: 220px"] {
+        min-width: unset !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+}
+
+/* Tablet: fix 2-col grids too */
+@media (max-width: 1024px) {
+    [style*="grid-template-columns: 1fr 1fr"],
+    [style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+    }
+
+    [style*="gap: 80px"],
+    [style*="gap:80px"] {
+        gap: 40px !important;
+    }
+}
+
 

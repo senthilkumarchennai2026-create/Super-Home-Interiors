@@ -1,8 +1,8 @@
 /*
    Super Home Interiors - Interactions
-   Version: 2.0 - Stabilization Pass
-   Fixed: Mega menu (JS-only), FAQ accordion,
-          header scroll, mobile nav, reveal animations
+   Version: 2.1 - Mobile Services Fix
+   Fixed: Mobile nav service sub-links now clickable,
+          Mega menu 8-item support
 */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -39,8 +39,25 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = isOpen ? 'hidden' : '';
         });
 
-        // Close nav when a link is clicked
+        // Close nav ONLY when a non-service-tile link is clicked
+        // (service tiles are .mob-service-tile — let those navigate freely)
         navLinks.querySelectorAll('a').forEach(link => {
+            // Skip service tiles and the "View all" link — they navigate away, no close needed
+            if (link.classList.contains('mob-service-tile') || link.classList.contains('mob-view-all')) {
+                return; // do nothing — browser handles navigation naturally
+            }
+
+            // Skip the Services parent link (it just labels the section on mobile)
+            if (link.closest('.has-dropdown') && !link.closest('.mob-services-block')) {
+                link.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 1024) {
+                        e.preventDefault(); // don't navigate, just keep drawer open
+                    }
+                });
+                return;
+            }
+
+            // All other nav links (Home, About, Portfolio, Contact) → close drawer
             link.addEventListener('click', () => {
                 navLinks.classList.remove('active');
                 mobileToggle.innerHTML = '<i data-lucide="menu"></i>';
@@ -64,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Open on mouseenter (desktop)
         dropdown.addEventListener('mouseenter', () => {
-            // Close any other open menus
             hasDropdowns.forEach(d => {
                 if (d !== dropdown) d.classList.remove('active');
             });
@@ -76,11 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
             dropdown.classList.remove('active');
         });
 
-        // Toggle on click (touch devices)
+        // On mobile: tapping "Services" label does nothing (handled above)
         trigger.addEventListener('click', (e) => {
             if (window.innerWidth <= 1024) {
                 e.preventDefault();
-                dropdown.classList.toggle('active');
             }
         });
     });
@@ -110,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                    // Unobserve after reveal for performance
                     revealObserver.unobserve(entry.target);
                 }
             });
@@ -135,14 +149,10 @@ document.addEventListener('DOMContentLoaded', () => {
         trigger.addEventListener('click', () => {
             const isActive = item.classList.contains('active');
 
-            // Close all other items
             faqItems.forEach(other => {
-                if (other !== item) {
-                    other.classList.remove('active');
-                }
+                if (other !== item) other.classList.remove('active');
             });
 
-            // Toggle current item
             item.classList.toggle('active', !isActive);
         });
     });
